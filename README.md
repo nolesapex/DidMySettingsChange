@@ -11,12 +11,14 @@ Features include:
     Easy to Use: Simple command-line interface that provides clear and concise output.
     Logs and Reports: Generates detailed logs and reports for auditing and troubleshooting.
 
-Installation
+    Installation
 
 1. Download Release
 
-2. Download the latest release from the Releases page and unzip the files.
-Usage
+2. Unzip the contents
+
+       Usage
+
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
 
