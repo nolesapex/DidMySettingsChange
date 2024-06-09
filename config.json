@@ -79,4 +79,9 @@
         "name": "AllowFindMyDevice",
         "expected_value": "0"
     }
+     "SpeechRecognition": {
+        "path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
+        "name": "HasAccepted",
+        "expected_value": "0"
+    }
 }
