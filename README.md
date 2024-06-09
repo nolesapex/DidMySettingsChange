@@ -12,9 +12,10 @@ Features include:
     Logs and Reports: Generates detailed logs and reports for auditing and troubleshooting.
 
 Installation
-Download Release
 
-Download the latest release from the Releases page and unzip the files.
+1. Download Release
+
+2. Download the latest release from the Releases page and unzip the files.
 Usage
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
@@ -62,9 +63,4 @@ We welcome contributions from the community! If you'd like to contribute, please
 Issues
 
 If you encounter any issues or have suggestions for improvements, please open an issue on GitHub. We appreciate your feedback and contributions to make "DidMySettingsChange" better!
-License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
-Acknowledgements
-
-We would like to thank the open-source community for their invaluable contributions and resources that made this project possible.
