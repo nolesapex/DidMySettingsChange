@@ -20,9 +20,16 @@ Usage
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
 
-bash
 
-python DidMySettingsChange.py
+
+bash (IF YOU USE LINUX!!!!!)
+
+In windows, don't type bash please :/
+
+
+"python DidMySettingsChange.py"
+
+
 
 The script will then check all relevant settings and provide a report on any changes detected.
 
