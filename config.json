@@ -70,7 +70,7 @@
         "expected_value": "0"
     },
     "SyncClipboard": {
-        "path": "HKCU:\\Software\\Microsoft\\Clipboard",
+        "path": "HKCU\\Software\\Microsoft\\Clipboard",
         "name": "SyncClipboardServiceEnabled",
         "expected_value": "0"
     },
@@ -78,8 +78,8 @@
         "path": "HKLM:\\Software\\Microsoft\\PolicyManager\\current\\device\\System",
         "name": "AllowFindMyDevice",
         "expected_value": "0"
-    }
-     "SpeechRecognition": {
+    },
+    "SpeechRecognition": {
         "path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
         "name": "HasAccepted",
         "expected_value": "0"
