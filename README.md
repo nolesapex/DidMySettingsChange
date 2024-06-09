@@ -25,7 +25,8 @@ bash
 python DidMySettingsChange.py
 
 The script will then check all relevant settings and provide a report on any changes detected.
-Configuration
+
+                                                       Configuration
 
 You can customize which settings to monitor by editing the config.json file. This file contains a list of settings and their expected states. For example:
 
