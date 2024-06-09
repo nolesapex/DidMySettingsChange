@@ -59,7 +59,7 @@ json
 }
 
 Modify the values as per your preferences before running the script.
-Contributing
+                                         Contributing
 
 We welcome contributions from the community! If you'd like to contribute, please follow these steps:
 
