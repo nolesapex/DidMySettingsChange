@@ -18,7 +18,7 @@ Features include:
 2. Unzip the contents
 
 
-               Usage
+                                                       Usage
 
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
@@ -29,7 +29,7 @@ To run the script, navigate to the directory where you unzipped the release file
 
 The script will then check all relevant settings and provide a report on any changes detected.
 
-                                                       Configuration
+                                                     Configuration
 
 You can customize which settings to monitor by editing the config.json file. This file contains a list of settings and their expected states. For example:
 
@@ -56,7 +56,7 @@ json
 
 Modify the values as per your preferences before running the script.
                                         
-                                         Contributing
+                                                  Contributing
 
 We welcome contributions from the community! If you'd like to contribute, please follow these steps:
 
