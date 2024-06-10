@@ -11,12 +11,17 @@ Features include:
     Easy to Use: Simple command-line interface that provides clear and concise output.
     Logs and Reports: Generates detailed logs and reports for auditing and troubleshooting.
 
-    Installation
+    
+    
+                                                   Installation
 
 1. Download Release
 
 2. Unzip the contents
 
+3. Run .py script
+
+4. repeat step 3 after installing windows updates 🫡
 
                                                        Usage
 
