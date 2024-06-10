@@ -17,7 +17,8 @@ Features include:
 
 2. Unzip the contents
 
-       Usage
+
+               Usage
 
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
