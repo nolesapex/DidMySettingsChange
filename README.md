@@ -23,14 +23,7 @@ Features include:
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
 
 
-
-bash (Linux)
-
-In windows, don't type bash please ;)
-
-
 "python DidMySettingsChange.py" in command prompt. Make sure you have the latest version of python is installed on your system or it will NOT work.
-
 
 
 The script will then check all relevant settings and provide a report on any changes detected.
