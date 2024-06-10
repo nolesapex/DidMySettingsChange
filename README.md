@@ -24,12 +24,12 @@ To run the script, navigate to the directory where you unzipped the release file
 
 
 
-bash (IF YOU USE LINUX!!!!!)
+bash (Linux)
 
-In windows, don't type bash please :/
+In windows, don't type bash please ;)
 
 
-"python DidMySettingsChange.py"
+"python DidMySettingsChange.py" in command prompt. Make sure you have the latest version of python is installed on your system or it will NOT work.
 
 
 
