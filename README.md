@@ -60,10 +60,10 @@ Modify the values as per your preferences before running the script.
 
 We welcome contributions from the community! If you'd like to contribute, please follow these steps:
 
-    Fork the repository.
-    Create a new branch for your feature or bugfix.
-    Commit your changes with descriptive messages.
-    Push your branch and create a pull request.
+1.    **Fork the repository.**
+2.    **Create a new branch for your feature or bugfix.**
+3.    **Commit your changes with descriptive messages.**
+4.    **Push your branch and create a pull request.**
 
 Issues
 
