@@ -2,29 +2,24 @@
 
 ![Logo](didmysettingschange.png)
 
-Microsoft has been under heavy scrutiny with how they manage Windows over the years, particularly concerning privacy and telemetry settings. Many users find that after disabling certain settings, these settings are mysteriously re-enabled after updates or without any apparent reason. "DidMySettingsChange" is a Python script designed to help users keep track of their Windows privacy and telemetry settings, ensuring that they stay in control of their privacy without the hassle of manually checking each setting.
-Features include:
+Microsoft has been under heavy scrutiny with how they manage Windows over the years, particularly concerning privacy and telemetry settings. Many users find that after disabling certain settings, these settings are mysteriously re-enabled after updates or without any apparent reason. **DidMySettingsChange** is a Python script designed to help users keep track of their Windows privacy and telemetry settings, ensuring that they stay in control of their privacy without the hassle of manually checking each setting.
 
-    Comprehensive Checks: Automatically scans all known Windows privacy and telemetry settings.
-    Change Detection: Alerts users if any settings have been changed from their preferred state.
-    Customizable Configuration: Allows users to specify which settings to monitor.
-    Easy to Use: Simple command-line interface that provides clear and concise output.
-    Logs and Reports: Generates detailed logs and reports for auditing and troubleshooting.
+## Features
 
-    
-    
-                                                   Installation
+- **Comprehensive Checks**: Automatically scans all known Windows privacy and telemetry settings.
+- **Change Detection**: Alerts users if any settings have been changed from their preferred state.
+- **Customizable Configuration**: Allows users to specify which settings to monitor.
+- **Easy to Use**: Simple command-line interface that provides clear and concise output.
+- **Logs and Reports**: Generates detailed logs and reports for auditing and troubleshooting.
 
-1. Download Release
+## Installation
 
-2. Unzip the contents
+1. **Download Release**
+2. **Unzip the Contents**
+3. **Run the .py Script**
+4. **Repeat Step 3 After Installing Windows Updates**
 
-3. Run .py script
-
-4. repeat step 3 after installing windows updates 🫡
-
-                                                       Usage
-
+## Usage
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
 
