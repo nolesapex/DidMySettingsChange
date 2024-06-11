@@ -1,0 +1,2 @@
+python DidMySettingsChange.py
+wait
