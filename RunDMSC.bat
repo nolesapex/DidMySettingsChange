@@ -1,2 +1,3 @@
+@echo on
 python DidMySettingsChange.py
-wait
+pause
