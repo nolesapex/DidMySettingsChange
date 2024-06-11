@@ -6,12 +6,13 @@ import sys
 
 # Define the settings file paths
 CONFIG_FILE = 'config.json'
+ALL_SETTINGS_FILE = 'all_settings.json'
 DATABASE_FILE = 'settings_database.json'
 LOG_FILE = 'settings_log.txt'
 
-# Load the configuration from config.json
-def load_config():
-    with open(CONFIG_FILE, 'r') as file:
+# Load the configuration from a specified file
+def load_config(file_path):
+    with open(file_path, 'r') as file:
         return json.load(file)
 
 # Load the last saved settings from the database
@@ -63,12 +64,24 @@ def fancy_print(message):
 
 # Main function
 def main():
-    # Load configuration
-    if not os.path.exists(CONFIG_FILE):
-        print(f"Configuration file '{CONFIG_FILE}' not found. Please create it and specify the settings to monitor.")
+    # Ask the user which settings to monitor
+    fancy_print("Would you like to monitor all settings or just privacy settings? (all/privacy): ")
+    user_choice = input().strip().lower()
+    
+    if user_choice == 'all':
+        config_file = ALL_SETTINGS_FILE
+    elif user_choice == 'privacy':
+        config_file = CONFIG_FILE
+    else:
+        print("Invalid choice. Please run the script again and choose either 'all' or 'privacy'.")
         return
     
-    config = load_config()
+    # Load configuration
+    if not os.path.exists(config_file):
+        print(f"Configuration file '{config_file}' not found. Please create it and specify the settings to monitor.")
+        return
+    
+    config = load_config(config_file)
     database = load_database()
     
     # If the database file doesn't exist, create it
