@@ -1,1 +1,99 @@
-
+{
+    "Telemetry": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
+        "name": "AllowTelemetry",
+        "expected_value": "0"
+    },
+    "AdvertisingID": {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+        "name": "Enabled",
+        "expected_value": "0"
+    },
+    "Location": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\lfsvc\\Service\\Configuration",
+        "name": "Status",
+        "expected_value": "Disabled"
+    },
+    "FeedbackFrequency": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
+        "name": "DoNotShowFeedbackNotifications",
+        "expected_value": "1"
+    },
+    "TailoredExperiencesWithDiagnosticData": {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+        "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+        "expected_value": "0"
+    },
+    "BackgroundApps": {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+        "name": "GlobalUserDisabled",
+        "expected_value": "1"
+    },
+    "AppLaunchTracking": {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "name": "Start_TrackProgs",
+        "expected_value": "0"
+    },
+    "SearchHistoryOnDevice": {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+        "name": "IsDeviceSearchHistoryEnabled",
+        "expected_value": "0"
+    },
+    "WebSearch": {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+        "name": "IsWebSearchEnabled",
+        "expected_value": "0"
+    },
+    "InkingTypingPersonalization": {
+        "path": "HKCU:\\Software\\Microsoft\\Input\\TIP\\PinnedTip",
+        "name": "EnableInkingDataCollection",
+        "expected_value": "0"
+    },
+    "TailoredExperiences": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+        "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+        "expected_value": "0"
+    },
+    "WiFiSense": {
+        "path": "HKLM:\\Software\\Microsoft\\WcmSvc\\wifinetworkmanager\\config",
+        "name": "AutoConnectAllowedOEM",
+        "expected_value": "0"
+    },
+    "ActivityHistory": {
+        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ActivityHistory",
+        "name": "PublishUserActivities",
+        "expected_value": "0"
+    },
+    "ClipboardHistory": {
+        "path": "HKCU:\\Software\\Microsoft\\Clipboard",
+        "name": "EnableClipboardHistory",
+        "expected_value": "0"
+    },
+     "WindowsUpdate": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+        "name": "NoAutoUpdate"
+    },
+     "NetworkDiscovery": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Dnscache\\Parameters",
+        "name": "EnableDnsProbe"
+    },
+     "FirewallState": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\StandardProfile",
+        "name": "EnableFirewall"
+    },
+    "SyncClipboard": {
+        "path": "HKCU\\Software\\Microsoft\\Clipboard",
+        "name": "SyncClipboardServiceEnabled",
+        "expected_value": "0"
+    },
+    "FindMyDevice": {
+        "path": "HKLM:\\Software\\Microsoft\\PolicyManager\\current\\device\\System",
+        "name": "AllowFindMyDevice",
+        "expected_value": "0"
+    },
+    "SpeechRecognition": {
+        "path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
+        "name": "HasAccepted",
+        "expected_value": "0"
+    }
+}
