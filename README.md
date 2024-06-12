@@ -29,6 +29,10 @@ To run the script, navigate to the directory where you unzipped the release file
 
 The script will then check all relevant settings and provide a report on any changes detected.
 
+## Bat mode
+
+To make the tool easier to use, simply run **DMSC.bat** file and the tool will run automatically!
+
 ## Configuration
 
 You can customize which settings to monitor by editing the config.json file. This file contains a list of settings and their expected states. For example:
@@ -65,7 +69,7 @@ We welcome contributions from the community! If you'd like to contribute, please
 3.    **Commit your changes with descriptive messages.**
 4.    **Push your branch and create a pull request.**
 
-Issues
+## Issues
 
 If you encounter any issues or have suggestions for improvements, please open an issue on GitHub. We appreciate your feedback and contributions to make "DidMySettingsChange" better!
 
