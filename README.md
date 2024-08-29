@@ -59,6 +59,10 @@ json
 }
 
 Modify the values as per your preferences before running the script.
+
+## UI Mode Coming Soon
+
+A UI mode will be coming soon. Stay tuned for updates on the repository!
                                         
 ## Contributing
 
