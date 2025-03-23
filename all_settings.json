@@ -95,5 +95,11 @@
         "path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
         "name": "HasAccepted",
         "expected_value": "0"
-    }
+    },
+  "Recall": {
+    "path": "HKCU:\\Software\\Microsoft\\Recall",
+    "name": "Enabled",
+    "expected_value": "0"
+  }
+
 }
