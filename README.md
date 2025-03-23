@@ -64,7 +64,7 @@ Modify the values as per your preferences before running the script.
 
 A UI mode will be coming soon. Stay tuned for updates on the repository!
 
-## For Windows Recall Users
+## For Windows Recall Users <span style="color: #39FF14; text-shadow: 0 0 8px #39FF14;">*NEW*</span>
 
 Windows has recall enabled on some PCs now. This won't apply to most users so if the script does not find that Windows recall is installed on the users computer, it will be ignored :)
                                         
