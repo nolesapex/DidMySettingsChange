@@ -84,7 +84,6 @@
         "name": "HasAccepted",
         "expected_value": "0"
     },
-    {
   "Recall": {
     "path": "HKCU:\\Software\\Microsoft\\Recall",
     "name": "Enabled",
