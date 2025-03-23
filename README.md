@@ -40,8 +40,7 @@ To make the tool easier to use, simply run **DMSC.bat** file and the tool will r
 
 You can customize which settings to monitor by editing the config.json file. This file contains a list of settings and their expected states. For example:
 
-json
-
+```json
 {
     "Telemetry": {
         "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
@@ -60,6 +59,7 @@ json
     }
     // Add more settings as needed
 }
+```
 
 Modify the values as per your preferences before running the script.
 
