@@ -63,6 +63,10 @@ Modify the values as per your preferences before running the script.
 ## UI Mode Coming Soon
 
 A UI mode will be coming soon. Stay tuned for updates on the repository!
+
+## For Windows Recall Users
+
+Windows has recall enabled on some PCs now. This won't apply to most users so if the script does not find that Windows recall is installed on the users computer, it will be ignored :)
                                         
 ## Contributing
 
