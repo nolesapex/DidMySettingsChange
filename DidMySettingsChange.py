@@ -30,9 +30,9 @@ def save_database(database):
 
 # Check a specific setting's current value using PowerShell
 def check_setting(setting):
-    command = f'powershell -Command "Get-ItemProperty -Path {setting["path"]} -Name {setting["name"]} | Select-Object -ExpandProperty {setting["name"]}"'
+    command = f'powershell -Command "Get-ItemProperty -Path {setting["path"]} -Name {setting["name"]} -ErrorAction SilentlyContinue | Select-Object -ExpandProperty {setting["name"]}"'
     result = subprocess.run(command, capture_output=True, text=True, shell=True)
-    return result.stdout.strip()
+    return result.stdout.strip(), result.returncode
 
 # Compare the current value with the expected value
 def check_settings(config, database):
@@ -40,7 +40,13 @@ def check_settings(config, database):
     current_settings = {}
     
     for setting_name, setting_info in config.items():
-        current_value = check_setting(setting_info)
+        current_value, return_code = check_setting(setting_info)
+        
+        if return_code != 0:
+            if setting_name.lower() == 'recall':
+                print("Warning: Windows recall feature is non-existent on this machine so it'll be ignored.")
+            continue  # Skip adding non-existent setting to changes
+        
         current_settings[setting_name] = current_value
         
         if setting_name in database and current_value != database[setting_name]:
