@@ -63,11 +63,17 @@ You can customize which settings to monitor by editing the config.json file. Thi
 
 Modify the values as per your preferences before running the script.
 
-## UI Mode Coming Soon
+## UI Mode Is Here!  🟢 *NEW*
 
-A UI mode will be coming soon. Stay tuned for updates on the repository!
+A UI mode has been introduced!
 
-![CLI](images/before.png) | ![GUI](images/after.png) |
+##Before
+
+![CLI](images/before.png) |
+
+##After
+
+![GUI](images/after.png) |
 
 ## For Windows Recall Users 🟢 *NEW*
 
