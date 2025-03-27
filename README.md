@@ -67,13 +67,24 @@ Modify the values as per your preferences before running the script.
 
 A UI mode has been introduced!
 
-##Before
+## 🖼️ Before & After – Example Output
 
-![CLI](images/before.png) |
+Here's a visual example of how **DidMySettingsChange** detects changes in your system settings:
 
-##After
+### 🔹 Before (Normal State)
 
-![GUI](images/after.png) |
+![Before Example](images/before.png)
+
+The setting is in its expected state.
+
+---
+
+### 🔸 After (Setting Changed)
+
+![After Example](images/after.png)
+
+A change was detected! The tool flags this with both a report and a log entry so you can act accordingly.
+
 
 ## For Windows Recall Users 🟢 *NEW*
 
