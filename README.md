@@ -67,6 +67,8 @@ Modify the values as per your preferences before running the script.
 
 A UI mode will be coming soon. Stay tuned for updates on the repository!
 
+![CLI](images/before.png) | ![GUI](images/after.png) |
+
 ## For Windows Recall Users 🟢 *NEW*
 
 Windows has recall enabled on some PCs now. This won't apply to most users so if the script does not find that Windows recall is installed on the users computer, it will be ignored :)
