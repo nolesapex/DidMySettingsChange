@@ -22,19 +22,19 @@ Microsoft has been under heavy scrutiny with how they manage Windows over the ye
 3. **Run the .py Script**
 4. **Repeat Step 3 After Installing Windows Updates**
 
-## Usage
+## How it Works + Usage
+
+The usage of tool is simple. You run the tool once. It will store all the current settings inside a txt file. Then you would run the tool again if say there was a windows update. 
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
 
-
 "python DidMySettingsChange.py" in command prompt. Make sure you have the latest version of python is installed on your system or it will NOT work.
 
-
-The script will then check all relevant settings and provide a report on any changes detected.
+The script will then check all relevant settings and provide a report on any changes detected after you run the script again.
 
 ## Bat mode
 
-To make the tool easier to use, simply run **DMSC.bat** file and the tool will run automatically!
+To make the tool easier to use, simply run **RunDMSC.bat** file and the tool will run automatically!
 
 ## Configuration
 
