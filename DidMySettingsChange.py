@@ -386,7 +386,19 @@ def run_gui():
 
     scrollbar = ctk.CTkScrollbar(output_frame, command=output_text.yview)
     scrollbar.place(relx=1, rely=0, relheight=1, anchor="ne")
-    output_text.configure(yscrollcommand=scrollbar.set)
+
+    def _sync_scrollbar(*args: str) -> None:
+        if len(args) != 2:
+            return
+
+        try:
+            start, end = (float(value) for value in args)
+        except (TypeError, ValueError):
+            return
+
+        scrollbar.set(start, end)
+
+    output_text.configure(yscrollcommand=_sync_scrollbar)
 
     def append_output(message: str) -> None:
         output_text.configure(state="normal")
