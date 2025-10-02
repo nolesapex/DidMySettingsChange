@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from typing import Dict, Iterable, List, Optional, Tuple
 
 import tkinter as tk
+from tkinter import messagebox
 
 # File paths
 CONFIG_FILE = 'config.json'
@@ -230,14 +231,101 @@ def monitor_settings(mode, output_widget=None):
     else:
         emit_message("No changes detected.", output_widget)
 
-# GUI mode using Tkinter
-def run_gui():
+# GUI helpers
+
+
+def _safe_messagebox(func, *args, **kwargs) -> Optional[bool]:
+    """Invoke a Tkinter messagebox function, falling back gracefully when unavailable."""
+
+    created_root = False
+    root = tk._default_root  # type: ignore[attr-defined]
+
     try:
-        import customtkinter as ctk
+        if root is None:
+            root = tk.Tk()
+            root.withdraw()
+            created_root = True
+
+        try:
+            return func(*args, **kwargs)
+        except tk.TclError:
+            return None
+    finally:
+        if created_root and root is not None:
+            root.destroy()
+
+
+def ensure_customtkinter():
+    """Import CustomTkinter, prompting the user to install it when missing."""
+
+    try:
+        import customtkinter as ctk  # type: ignore[import-not-found]
+
+        return ctk
     except ImportError as exc:  # pragma: no cover - optional dependency
+        repo_url = "https://github.com/TomSchimansky/CustomTkinter"
+        prompt = (
+            "CustomTkinter is required for the DidMySettingsChange GUI but is not installed.\n\n"
+            "Would you like to install it now using pip?\n\n"
+            "The project and installation instructions are available at:"
+            f"\n{repo_url}"
+        )
+
+        response = _safe_messagebox(
+            messagebox.askyesno,
+            "Install CustomTkinter",
+            prompt,
+        )
+
+        if response:
+            try:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "customtkinter"])
+            except subprocess.CalledProcessError as install_error:
+                _safe_messagebox(
+                    messagebox.showerror,
+                    "Installation failed",
+                    (
+                        "Pip was unable to install CustomTkinter automatically.\n\n"
+                        "You can install it manually with:\n"
+                        "    pip install customtkinter\n\n"
+                        f"Repository: {repo_url}\n\n"
+                        f"Error: {install_error}"
+                    ),
+                )
+            else:
+                _safe_messagebox(
+                    messagebox.showinfo,
+                    "Installation complete",
+                    "CustomTkinter was installed successfully.",
+                )
+                import customtkinter as ctk  # type: ignore[import-not-found]
+
+                return ctk
+
+        if response is None:
+            emit_message(
+                "CustomTkinter is required for the GUI. Install it with 'pip install customtkinter'.",
+                None,
+            )
+        else:
+            _safe_messagebox(
+                messagebox.showinfo,
+                "CustomTkinter Required",
+                (
+                    "CustomTkinter is required for the DidMySettingsChange GUI.\n\n"
+                    "Install it manually with:\n    pip install customtkinter\n\n"
+                    f"Repository: {repo_url}"
+                ),
+            )
+
         raise RuntimeError(
             "CustomTkinter is required for the GUI. Install it with 'pip install customtkinter'."
         ) from exc
+
+
+# GUI mode using Tkinter
+def run_gui():
+    ctk = ensure_customtkinter()
 
     ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("dark-blue")

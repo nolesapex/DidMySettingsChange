@@ -19,8 +19,11 @@ Microsoft has been under heavy scrutiny with how they manage Windows over the ye
 
 1. **Download Release**
 2. **Unzip the Contents**
-3. **Run the .py Script**
-4. **Repeat Step 3 After Installing Windows Updates**
+3. **Install Dependencies** using `pip install -r requirements.txt` to ensure the GUI components are available.
+4. **Run the .py Script**
+5. **Repeat Step 4 After Installing Windows Updates**
+
+> **Heads up:** The graphical interface uses [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter). If it is missing, the application now offers to install it for you automatically, or you can install it manually with `pip install customtkinter`.
 
 ## How it Works + Usage
 
