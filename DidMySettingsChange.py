@@ -29,13 +29,13 @@ def emit_message(message: str, output_widget: Optional[tk.Text]) -> None:
     if output_widget:
         try:
             previous_state = output_widget.cget("state")  # type: ignore[call-arg]
-        except (tk.TclError, AttributeError):
+        except (tk.TclError, AttributeError, ValueError):
             previous_state = "normal"
 
         if previous_state == "disabled":
             try:
                 output_widget.configure(state="normal")  # type: ignore[call-arg]
-            except (tk.TclError, AttributeError):
+            except (tk.TclError, AttributeError, ValueError):
                 previous_state = "normal"
 
         output_widget.insert(tk.END, message + "\n")
@@ -44,7 +44,7 @@ def emit_message(message: str, output_widget: Optional[tk.Text]) -> None:
         if previous_state == "disabled":
             try:
                 output_widget.configure(state="disabled")  # type: ignore[call-arg]
-            except (tk.TclError, AttributeError):
+            except (tk.TclError, AttributeError, ValueError):
                 pass
     else:
         print(message)
