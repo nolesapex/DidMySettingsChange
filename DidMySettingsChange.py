@@ -1,7 +1,9 @@
 import argparse
+import importlib
 import json
 import os
 import shutil
+import site
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -255,8 +257,26 @@ def _safe_messagebox(func, *args, **kwargs) -> Optional[bool]:
             root.destroy()
 
 
+def _add_user_site_packages_to_path() -> None:
+    """Ensure the current process can import packages installed with --user."""
+
+    try:
+        user_sites = site.getusersitepackages()
+    except (AttributeError, ValueError):  # pragma: no cover - platform dependent
+        return
+
+    if isinstance(user_sites, str):
+        user_sites = [user_sites]
+
+    for user_site in user_sites:
+        if user_site and user_site not in sys.path:
+            site.addsitedir(user_site)
+
+
 def ensure_customtkinter():
     """Import CustomTkinter, prompting the user to install it when missing."""
+
+    _add_user_site_packages_to_path()
 
     try:
         import customtkinter as ctk  # type: ignore[import-not-found]
@@ -298,6 +318,8 @@ def ensure_customtkinter():
                     "Installation complete",
                     "CustomTkinter was installed successfully.",
                 )
+                importlib.invalidate_caches()
+                _add_user_site_packages_to_path()
                 import customtkinter as ctk  # type: ignore[import-not-found]
 
                 return ctk
