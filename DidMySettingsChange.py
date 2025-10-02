@@ -212,9 +212,17 @@ def monitor_settings(mode, output_widget=None):
     database = load_database() if database_exists else {}
 
     if not database_exists or not database:
+        emit_message(
+            "No existing baseline found. Capturing the current settings as a new baseline...",
+            output_widget,
+        )
+
         _, current_settings, warnings = check_settings(config, {})
         save_database(current_settings)
-        emit_message("Initial setup complete. Settings saved.", output_widget)
+        emit_message(
+            "Initial setup complete. Run the monitor again to compare against the saved baseline.",
+            output_widget,
+        )
         for warning in warnings:
             emit_message(warning, output_widget)
         return
@@ -406,13 +414,27 @@ def run_gui():
         output_text.see(tk.END)
         output_text.configure(state="disabled")
 
-    def monitor_privacy() -> None:
-        append_output("Checking privacy settings...")
-        monitor_settings('privacy', output_text)
+    monitoring_state = {"active": False}
 
-    def monitor_all() -> None:
-        append_output("Checking all settings...")
-        monitor_settings('all', output_text)
+    def _start_monitor(mode: str, start_message: str) -> None:
+        if monitoring_state["active"]:
+            append_output("A check is already running. Please wait for it to finish.")
+            return
+
+        monitoring_state["active"] = True
+        btn_privacy.configure(state="disabled")
+        btn_all.configure(state="disabled")
+        append_output(start_message)
+
+        def _run_check() -> None:
+            try:
+                monitor_settings(mode, output_text)
+            finally:
+                btn_privacy.configure(state="normal")
+                btn_all.configure(state="normal")
+                monitoring_state["active"] = False
+
+        window.after(100, _run_check)
 
     button_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
     button_frame.pack(fill="x", padx=18, pady=(0, 18))
@@ -422,7 +444,7 @@ def run_gui():
     btn_privacy = ctk.CTkButton(
         button_frame,
         text="Monitor Privacy Settings",
-        command=monitor_privacy,
+        command=lambda: _start_monitor('privacy', "Checking privacy settings..."),
         width=200,
         height=44,
         font=button_font,
@@ -433,7 +455,7 @@ def run_gui():
     btn_all = ctk.CTkButton(
         button_frame,
         text="Monitor All Settings",
-        command=monitor_all,
+        command=lambda: _start_monitor('all', "Checking all settings..."),
         width=200,
         height=44,
         font=button_font,
