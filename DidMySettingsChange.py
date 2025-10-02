@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from typing import Dict, Iterable, List, Optional, Tuple
 
 import tkinter as tk
-from tkinter import scrolledtext
 
 # File paths
 CONFIG_FILE = 'config.json'
@@ -25,8 +24,25 @@ def stringify(value: object) -> str:
 
 def emit_message(message: str, output_widget: Optional[tk.Text]) -> None:
     if output_widget:
+        try:
+            previous_state = output_widget.cget("state")  # type: ignore[call-arg]
+        except (tk.TclError, AttributeError):
+            previous_state = "normal"
+
+        if previous_state == "disabled":
+            try:
+                output_widget.configure(state="normal")  # type: ignore[call-arg]
+            except (tk.TclError, AttributeError):
+                previous_state = "normal"
+
         output_widget.insert(tk.END, message + "\n")
         output_widget.see(tk.END)
+
+        if previous_state == "disabled":
+            try:
+                output_widget.configure(state="disabled")  # type: ignore[call-arg]
+            except (tk.TclError, AttributeError):
+                pass
     else:
         print(message)
 
@@ -216,32 +232,92 @@ def monitor_settings(mode, output_widget=None):
 
 # GUI mode using Tkinter
 def run_gui():
-    window = tk.Tk()
+    try:
+        import customtkinter as ctk
+    except ImportError as exc:  # pragma: no cover - optional dependency
+        raise RuntimeError(
+            "CustomTkinter is required for the GUI. Install it with 'pip install customtkinter'."
+        ) from exc
+
+    ctk.set_appearance_mode("dark")
+    ctk.set_default_color_theme("dark-blue")
+
+    window = ctk.CTk()
     window.title("DidMySettingsChange")
-    window.geometry("720x480")
+    window.geometry("860x540")
+    window.minsize(720, 480)
 
-    label = tk.Label(window, text="🛡️ DidMySettingsChange", font=("Helvetica", 18))
-    label.pack(pady=10)
+    main_frame = ctk.CTkFrame(window, fg_color="#121212", corner_radius=18)
+    main_frame.pack(fill="both", expand=True, padx=24, pady=24)
 
-    output_text = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=90, height=20)
-    output_text.pack(padx=10, pady=10)
+    header_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
+    header_frame.pack(fill="x", padx=12, pady=(18, 6))
 
-    def monitor_privacy():
-        output_text.insert(tk.END, "Checking privacy settings...\n")
+    title_font = ctk.CTkFont(size=28, weight="bold")
+    subtitle_font = ctk.CTkFont(size=14)
+
+    title_label = ctk.CTkLabel(header_frame, text="🛡️ DidMySettingsChange", font=title_font)
+    title_label.pack(anchor="w")
+
+    subtitle_label = ctk.CTkLabel(
+        header_frame,
+        text="Monitor your Windows privacy and system settings with a sleek dark interface.",
+        font=subtitle_font,
+        text_color="#a0a0a0",
+    )
+    subtitle_label.pack(anchor="w", pady=(4, 0))
+
+    output_frame = ctk.CTkFrame(main_frame, corner_radius=16)
+    output_frame.pack(fill="both", expand=True, padx=18, pady=(6, 18))
+
+    output_text = ctk.CTkTextbox(output_frame, wrap="word", activate_scrollbars=False)
+    output_text.pack(fill="both", expand=True, padx=18, pady=18)
+    output_text.configure(state="disabled")
+
+    scrollbar = ctk.CTkScrollbar(output_frame, command=output_text.yview)
+    scrollbar.place(relx=1, rely=0, relheight=1, anchor="ne")
+    output_text.configure(yscrollcommand=scrollbar.set)
+
+    def append_output(message: str) -> None:
+        output_text.configure(state="normal")
+        output_text.insert(tk.END, message + "\n")
+        output_text.see(tk.END)
+        output_text.configure(state="disabled")
+
+    def monitor_privacy() -> None:
+        append_output("Checking privacy settings...")
         monitor_settings('privacy', output_text)
 
-    def monitor_all():
-        output_text.insert(tk.END, "Checking all settings...\n")
+    def monitor_all() -> None:
+        append_output("Checking all settings...")
         monitor_settings('all', output_text)
 
-    button_frame = tk.Frame(window)
-    button_frame.pack(pady=5)
+    button_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
+    button_frame.pack(fill="x", padx=18, pady=(0, 18))
 
-    btn_privacy = tk.Button(button_frame, text="Monitor Privacy Settings", command=monitor_privacy, width=30)
-    btn_all = tk.Button(button_frame, text="Monitor All Settings", command=monitor_all, width=30)
+    button_font = ctk.CTkFont(size=15, weight="bold")
 
-    btn_privacy.grid(row=0, column=0, padx=10)
-    btn_all.grid(row=0, column=1, padx=10)
+    btn_privacy = ctk.CTkButton(
+        button_frame,
+        text="Monitor Privacy Settings",
+        command=monitor_privacy,
+        width=200,
+        height=44,
+        font=button_font,
+        corner_radius=12,
+    )
+    btn_privacy.pack(side="left", expand=True, padx=(0, 10))
+
+    btn_all = ctk.CTkButton(
+        button_frame,
+        text="Monitor All Settings",
+        command=monitor_all,
+        width=200,
+        height=44,
+        font=button_font,
+        corner_radius=12,
+    )
+    btn_all.pack(side="left", expand=True, padx=(10, 0))
 
     window.mainloop()
 
