@@ -32,6 +32,25 @@ To run the script, navigate to the directory where you unzipped the release file
 
 The script will then check all relevant settings and provide a report on any changes detected after you run the script again.
 
+### Command Line Options
+
+If you prefer staying in the terminal you can launch the tool in CLI mode:
+
+```bash
+python DidMySettingsChange.py --cli
+```
+
+Additional options include:
+
+- `--mode {privacy,all}` – choose which configuration to evaluate without being prompted.
+- `--reset-baseline` – discard the previously saved snapshot and create a fresh baseline before checking.
+
+Example:
+
+```bash
+python DidMySettingsChange.py --cli --mode all --reset-baseline
+```
+
 ## Bat mode
 
 To make the tool easier to use, simply run **RunDMSC.bat** file and the tool will run automatically!

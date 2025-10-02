@@ -1,10 +1,14 @@
+import argparse
 import json
 import os
+import shutil
 import subprocess
-import time
 import sys
+from dataclasses import dataclass
+from typing import Dict, Iterable, List, Optional, Tuple
+
 import tkinter as tk
-from tkinter import scrolledtext, messagebox
+from tkinter import scrolledtext
 
 # File paths
 CONFIG_FILE = 'config.json'
@@ -12,96 +16,203 @@ ALL_SETTINGS_FILE = 'all_settings.json'
 DATABASE_FILE = 'settings_database.json'
 LOG_FILE = 'settings_log.txt'
 
-# Load configuration
-def load_config(file_path):
-    with open(file_path, 'r') as file:
-        return json.load(file)
+
+def stringify(value: object) -> str:
+    if isinstance(value, bool):
+        return str(value).lower()
+    return str(value)
+
+
+def emit_message(message: str, output_widget: Optional[tk.Text]) -> None:
+    if output_widget:
+        output_widget.insert(tk.END, message + "\n")
+        output_widget.see(tk.END)
+    else:
+        print(message)
+
+class ConfigurationError(Exception):
+    """Raised when the configuration file cannot be loaded or is invalid."""
+
+
+@dataclass
+class SettingChange:
+    name: str
+    current: str
+    expected: Optional[str] = None
+    previous: Optional[str] = None
+
+    def format_for_output(self) -> str:
+        parts = [f"{self.name}: Current={self.current}"]
+        if self.expected is not None:
+            parts.append(f"Expected={self.expected}")
+        if self.previous is not None:
+            parts.append(f"Previous={self.previous}")
+        return ", ".join(parts)
+
+
+def load_config(file_path: str) -> Dict[str, Dict[str, str]]:
+    """Load and validate the configuration file."""
+    if not os.path.exists(file_path):
+        raise ConfigurationError(f"Configuration file '{file_path}' not found.")
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            config = json.load(file)
+    except json.JSONDecodeError as exc:
+        raise ConfigurationError(f"Configuration file '{file_path}' is not valid JSON: {exc}.") from exc
+
+    validate_config(config)
+    return config
 
 # Load saved settings
 def load_database():
     if os.path.exists(DATABASE_FILE):
-        with open(DATABASE_FILE, 'r') as file:
-            return json.load(file)
+        try:
+            with open(DATABASE_FILE, 'r', encoding='utf-8') as file:
+                return json.load(file)
+        except json.JSONDecodeError:
+            # If the database becomes corrupted, fall back to a clean state.
+            return {}
     return {}
+
+
+def validate_config(config: Dict[str, Dict[str, str]]) -> None:
+    """Ensure each configured setting contains the required metadata."""
+    errors: List[str] = []
+    for setting_name, setting_info in config.items():
+        if not isinstance(setting_info, dict):
+            errors.append(f"Setting '{setting_name}' must be an object.")
+            continue
+
+        for key in ("path", "name"):
+            value = setting_info.get(key)
+            if not value or not isinstance(value, str):
+                errors.append(f"Setting '{setting_name}' is missing a string '{key}'.")
+
+        expected_value = setting_info.get("expected_value")
+        if expected_value is not None and not isinstance(expected_value, (str, int, float, bool)):
+            errors.append(
+                f"Setting '{setting_name}' has an unsupported 'expected_value' type: {type(expected_value).__name__}."
+            )
+
+    if errors:
+        raise ConfigurationError("\n".join(errors))
 
 # Save current settings
 def save_database(database):
-    with open(DATABASE_FILE, 'w') as file:
+    with open(DATABASE_FILE, 'w', encoding='utf-8') as file:
         json.dump(database, file, indent=4)
 
 # Use PowerShell to check a Windows registry setting
 def check_setting(setting):
-    command = f'powershell -Command "Get-ItemProperty -Path {setting["path"]} -Name {setting["name"]} -ErrorAction SilentlyContinue | Select-Object -ExpandProperty {setting["name"]}"'
-    result = subprocess.run(command, capture_output=True, text=True, shell=True)
+    if shutil.which('powershell') is None and shutil.which('pwsh') is None:
+        return '', 1
+
+    path = setting["path"]
+    name = setting["name"]
+    command = (
+        f"$item = Get-ItemProperty -Path '{path}' -Name '{name}' -ErrorAction SilentlyContinue;"
+        "if ($null -eq $item) { exit 1 };"
+        f"$value = $item.{name};"
+        "if ($null -eq $value) { exit 1 };"
+        "Write-Output $value"
+    )
+
+    powershell = shutil.which('powershell') or shutil.which('pwsh')
+    result = subprocess.run(
+        [powershell, '-NoProfile', '-Command', command],
+        capture_output=True,
+        text=True,
+    )
     return result.stdout.strip(), result.returncode
 
 # Compare settings
-def check_settings(config, database):
-    changes = []
-    current_settings = {}
+def check_settings(
+    config: Dict[str, Dict[str, str]], database: Dict[str, str]
+) -> Tuple[List[SettingChange], Dict[str, str], List[str]]:
+    changes: List[SettingChange] = []
+    current_settings: Dict[str, str] = {}
+    warnings: List[str] = []
 
     for setting_name, setting_info in config.items():
         current_value, return_code = check_setting(setting_info)
 
         if return_code != 0:
             if setting_name.lower() == 'recall':
-                print("Warning: Windows recall feature not found, skipping.")
+                warnings.append("Warning: Windows recall feature not found, skipping.")
+            else:
+                warnings.append(f"Warning: Unable to read setting '{setting_name}'.")
             continue
 
+        current_value = stringify(current_value.strip())
         current_settings[setting_name] = current_value
 
-        if setting_name in database and current_value != database[setting_name]:
-            changes.append((setting_name, current_value, database[setting_name]))
+        previous_value_raw = database.get(setting_name)
+        previous_value = stringify(previous_value_raw).strip() if previous_value_raw is not None else None
 
-    return changes, current_settings
+        expected_value_raw = setting_info.get("expected_value")
+        expected_value = stringify(expected_value_raw).strip() if expected_value_raw is not None else None
+
+        mismatched_expected = expected_value is not None and current_value != expected_value
+        mismatched_previous = previous_value is not None and current_value != previous_value
+
+        if mismatched_expected or mismatched_previous:
+            changes.append(
+                SettingChange(
+                    name=setting_name,
+                    current=current_value,
+                    expected=expected_value if mismatched_expected else None,
+                    previous=previous_value if mismatched_previous else None,
+                )
+            )
+
+    return changes, current_settings, warnings
 
 # Log to file
 def log_results(changes):
-    with open(LOG_FILE, 'a') as log_file:
-        for setting, current, expected in changes:
-            log_file.write(f"[CHANGE DETECTED] {setting}: Current={current}, Previous={expected}\n")
+    with open(LOG_FILE, 'a', encoding='utf-8') as log_file:
+        for change in changes:
+            log_file.write(f"[CHANGE DETECTED] {change.format_for_output()}\n")
 
 # Shared monitoring logic
 def monitor_settings(mode, output_widget=None):
+    mode = mode.lower()
+    if mode not in {'all', 'privacy'}:
+        emit_message(f"Unknown monitoring mode '{mode}'.", output_widget)
+        return
+
     config_file = ALL_SETTINGS_FILE if mode == 'all' else CONFIG_FILE
 
-    if not os.path.exists(config_file):
-        msg = f"Configuration file '{config_file}' not found!"
-        if output_widget:
-            output_widget.insert(tk.END, msg + "\n")
-        else:
-            print(msg)
+    try:
+        config = load_config(config_file)
+    except ConfigurationError as exc:
+        emit_message(str(exc), output_widget)
         return
 
-    config = load_config(config_file)
-    database = load_database()
+    database_exists = os.path.exists(DATABASE_FILE)
+    database = load_database() if database_exists else {}
 
-    if not os.path.exists(DATABASE_FILE):
-        _, current_settings = check_settings(config, {})
+    if not database_exists or not database:
+        _, current_settings, warnings = check_settings(config, {})
         save_database(current_settings)
-        msg = "Initial setup complete. Settings saved."
-        if output_widget:
-            output_widget.insert(tk.END, msg + "\n")
-        else:
-            print(msg)
+        emit_message("Initial setup complete. Settings saved.", output_widget)
+        for warning in warnings:
+            emit_message(warning, output_widget)
         return
 
-    changes, current_settings = check_settings(config, database)
+    changes, current_settings, warnings = check_settings(config, database)
     save_database(current_settings)
 
+    for warning in warnings:
+        emit_message(warning, output_widget)
+
     if changes:
-        output = "Changes detected:\n"
-        for setting, current, expected in changes:
-            output += f" - {setting}: Current={current}, Previous={expected}\n"
+        emit_message("Changes detected:", output_widget)
+        for change in changes:
+            emit_message(f" - {change.format_for_output()}", output_widget)
         log_results(changes)
     else:
-        output = "No changes detected.\n"
-
-    if output_widget:
-        output_widget.insert(tk.END, output + "\n")
-        output_widget.see(tk.END)
-    else:
-        print(output)
+        emit_message("No changes detected.", output_widget)
 
 # GUI mode using Tkinter
 def run_gui():
@@ -135,19 +246,41 @@ def run_gui():
     window.mainloop()
 
 # CLI mode
-def run_cli():
-    print("Monitor 'all' settings or just 'privacy' settings? (all/privacy): ")
-    choice = input().strip().lower()
+def run_cli(mode: Optional[str] = None, reset_baseline: bool = False) -> None:
+    if reset_baseline and os.path.exists(DATABASE_FILE):
+        os.remove(DATABASE_FILE)
+        print("Existing baseline removed. A new snapshot will be created.")
 
-    if choice not in ['all', 'privacy']:
+    if mode is None:
+        print("Monitor 'all' settings or just 'privacy' settings? (all/privacy): ")
+        mode = input().strip().lower()
+
+    if mode not in {'all', 'privacy'}:
         print("Invalid choice. Exiting.")
         return
 
-    monitor_settings(choice)
+    monitor_settings(mode)
+
+
+def parse_arguments(argv: Optional[Iterable[str]] = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Monitor Windows privacy settings for unexpected changes.")
+    parser.add_argument('--cli', action='store_true', help='Run the application in CLI mode.')
+    parser.add_argument(
+        '--mode',
+        choices=['all', 'privacy'],
+        help="Choose whether to monitor 'all' configured settings or only the privacy subset.",
+    )
+    parser.add_argument(
+        '--reset-baseline',
+        action='store_true',
+        help='Recreate the stored baseline before running a check.',
+    )
+    return parser.parse_args(argv)
 
 # Entry point
 if __name__ == '__main__':
-    if len(sys.argv) > 1 and sys.argv[1] == '--cli':
-        run_cli()
+    args = parse_arguments()
+    if args.cli:
+        run_cli(mode=args.mode, reset_baseline=args.reset_baseline)
     else:
         run_gui()
