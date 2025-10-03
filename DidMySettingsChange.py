@@ -4,7 +4,7 @@ import subprocess
 import time
 import sys
 import tkinter as tk
-from tkinter import scrolledtext, messagebox
+import customtkinter as ctk
 
 # File paths
 CONFIG_FILE = 'config.json'
@@ -105,29 +105,32 @@ def monitor_settings(mode, output_widget=None):
 
 # GUI mode using Tkinter
 def run_gui():
-    window = tk.Tk()
+    ctk.set_appearance_mode("dark")
+    ctk.set_default_color_theme("dark-blue")
+
+    window = ctk.CTk()
     window.title("DidMySettingsChange")
     window.geometry("720x480")
 
-    label = tk.Label(window, text="🛡️ DidMySettingsChange", font=("Helvetica", 18))
+    label = ctk.CTkLabel(window, text="🛡️ DidMySettingsChange", font=("Helvetica", 18))
     label.pack(pady=10)
 
-    output_text = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=90, height=20)
-    output_text.pack(padx=10, pady=10)
+    output_text = ctk.CTkTextbox(window, wrap="word", width=680, height=320)
+    output_text.pack(padx=10, pady=10, fill="both", expand=True)
 
     def monitor_privacy():
-        output_text.insert(tk.END, "Checking privacy settings...\n")
+        output_text.insert("end", "Checking privacy settings...\n")
         monitor_settings('privacy', output_text)
 
     def monitor_all():
-        output_text.insert(tk.END, "Checking all settings...\n")
+        output_text.insert("end", "Checking all settings...\n")
         monitor_settings('all', output_text)
 
-    button_frame = tk.Frame(window)
+    button_frame = ctk.CTkFrame(window)
     button_frame.pack(pady=5)
 
-    btn_privacy = tk.Button(button_frame, text="Monitor Privacy Settings", command=monitor_privacy, width=30)
-    btn_all = tk.Button(button_frame, text="Monitor All Settings", command=monitor_all, width=30)
+    btn_privacy = ctk.CTkButton(button_frame, text="Monitor Privacy Settings", command=monitor_privacy, width=200)
+    btn_all = ctk.CTkButton(button_frame, text="Monitor All Settings", command=monitor_all, width=200)
 
     btn_privacy.grid(row=0, column=0, padx=10)
     btn_all.grid(row=0, column=1, padx=10)
