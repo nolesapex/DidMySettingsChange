@@ -219,12 +219,27 @@ def monitor_settings(mode, output_widget=None):
 
         _, current_settings, warnings = check_settings(config, {})
         save_database(current_settings)
+
+        if current_settings:
+            emit_message("Captured baseline values:", output_widget)
+            for setting_name in sorted(current_settings):
+                emit_message(
+                    f" - {setting_name}: {current_settings[setting_name]}",
+                    output_widget,
+                )
+        else:
+            emit_message(
+                "Warning: No settings were captured. Verify the configuration paths are correct.",
+                output_widget,
+            )
+
+        for warning in warnings:
+            emit_message(warning, output_widget)
+
         emit_message(
             "Initial setup complete. Run the monitor again to compare against the saved baseline.",
             output_widget,
         )
-        for warning in warnings:
-            emit_message(warning, output_widget)
         return
 
     changes, current_settings, warnings = check_settings(config, database)
