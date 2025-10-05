@@ -88,6 +88,8 @@ Modify the values as per your preferences before running the script.
 ## UI Mode Is Here!  🟢 *NEW*
 
 A UI mode has been introduced! Make sure you install customktinker dependencies in order for it to work.
+To install dependencies for customtkinter, type:
+```pip3 install customtkinter```
 
 ## 🖼️ Before & After – Example Output
 
