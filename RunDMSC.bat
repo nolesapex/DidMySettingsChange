@@ -1,3 +1,3 @@
 @echo on
-python DidMySettingsChange.py
+python splash_screen.py
 pause
