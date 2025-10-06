@@ -100,6 +100,58 @@
     "path": "HKCU:\\Software\\Microsoft\\Recall",
     "name": "Enabled",
     "expected_value": "0"
+  {
+  "AllowCortana": {
+    "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+    "name": "AllowCortana",
+    "expected_value": "0"
+  },
+  "DisableConsumerFeatures": {
+    "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+    "name": "DisableConsumerFeatures",
+    "expected_value": "1"
+  },
+  "TipsNotifications": {
+    "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+    "name": "SubscribedContent-338388Enabled",
+    "expected_value": "0"
+  },
+  "OneDriveAutoStart": {
+    "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+    "name": "OneDrive",
+    "expected_value": ""
+  },
+  "SyncSettings": {
+    "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\SettingSync",
+    "name": "DisableSettingSync",
+    "expected_value": "1"
+  },
+  "CEIPEnabled": {
+    "path": "HKLM:\\SOFTWARE\\Microsoft\\SQMClient\\Windows",
+    "name": "CEIPEnable",
+    "expected_value": "0"
+  },
+  "MicrophoneAccess": {
+    "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\microphone",
+    "name": "Value",
+    "expected_value": "Deny"
+  },
+  "CameraAccess": {
+    "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\webcam",
+    "name": "Value",
+    "expected_value": "Deny"
+  },
+  "BingSearchEnabled": {
+    "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+    "name": "DisableWebSearch",
+    "expected_value": "1"
+  },
+  "RecallSnapshotFrequency": {
+    "path": "HKCU:\\Software\\Microsoft\\Recall",
+    "name": "SnapshotFrequency",
+    "expected_value": "Low"
+  }
+ 
   }
 
-}
+
