@@ -34,7 +34,7 @@ To run the script, navigate to the directory where you unzipped the release file
 
 The script will then check all relevant settings and provide a report on any changes detected after you run the script again.
 
-## Depencies installer window  🟢 *NEW*
+## Dependencies installer window  🟢 *NEW*
 
 Users no longer need to install depencies using the terminal. A GUI popup will automatically check and prompt the user to download the necessary dependencies if needed starting with V1.0.0.8
 
