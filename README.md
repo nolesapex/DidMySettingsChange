@@ -19,8 +19,8 @@ Microsoft has been under heavy scrutiny with how they manage Windows over the ye
 
 1. **Download Release**
 2. **Unzip the Contents**
-3. **Install Dependencies** using `pip install -r requirements.txt` to ensure the GUI components are available. Make sure python is installed on windows. Open up CMD in the root directory where `requirments` file is located. Then type in the command :)
-4. **Run the .py Script**
+3. **Install Dependencies** Application now uses a fully fledge UI popup window that will check for depencies needed and download them for you!
+4. **Run the .py script or run the EXE**
 5. **Repeat Step 4 After Installing Windows Updates**
 
 ## How it Works + Usage
@@ -32,6 +32,10 @@ To run the script, navigate to the directory where you unzipped the release file
 "python DidMySettingsChange.py" in command prompt. Make sure you have the latest version of python is installed on your system or it will NOT work.
 
 The script will then check all relevant settings and provide a report on any changes detected after you run the script again.
+
+## Depencies installer window  🟢 *NEW*
+
+Users no longer need to install depencies using the terminal. A GUI popup will automatically check and prompt the user to download the necessary dependencies if needed starting with V1.0.0.8
 
 ### Command Line Options
 
@@ -85,9 +89,7 @@ Modify the values as per your preferences before running the script.
 
 ## UI Mode Is Here!  🟢 *NEW*
 
-A UI mode has been introduced! Make sure you install customktinker dependencies in order for it to work.
-To install dependencies for customtkinter, type:
-```pip3 install customtkinter```
+A UI mode has been introduced! Uses customtkinter module.
 
 ## 🖼️ Before & After – Example Output
 
