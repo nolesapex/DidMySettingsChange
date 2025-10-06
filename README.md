@@ -19,7 +19,7 @@ Microsoft has been under heavy scrutiny with how they manage Windows over the ye
 
 1. **Download Release**
 2. **Unzip the Contents**
-3. **Install Dependencies** using `pip install -r requirements.txt` to ensure the GUI components are available.
+3. **Install Dependencies** using `pip install -r requirements.txt` to ensure the GUI components are available. Make sure python is installed on windows. Open up CMD in the root directory where `requirments` file is located. Then type in the command :)
 4. **Run the .py Script**
 5. **Repeat Step 4 After Installing Windows Updates**
 
