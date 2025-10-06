@@ -14,6 +14,7 @@ Microsoft has been under heavy scrutiny with how they manage Windows over the ye
 - **Customizable Configuration**: Allows users to specify which settings to monitor.
 - **Easy to Use**: Simple command-line interface that provides clear and concise output.
 - **Logs and Reports**: Generates detailed logs and reports for auditing and troubleshooting.
+- **Fully Fledged UI Mode** A fully fledged UI mode for simple use of the program.
 
 ## Installation
 
@@ -87,10 +88,6 @@ You can customize which settings to monitor by editing the config.json file. Thi
 
 Modify the values as per your preferences before running the script.
 
-## UI Mode Is Here!  🟢 *NEW*
-
-A UI mode has been introduced! Uses customtkinter module.
-
 ## 🖼️ Before & After – Example Output
 
 Here's a visual example of how **DidMySettingsChange** detects changes in your system settings:
@@ -110,7 +107,7 @@ The setting is in its expected state.
 A change was detected! The tool flags this with both a report and a log entry so you can act accordingly.
 
 
-## For Windows Recall Users 🟢 *NEW*
+## For Windows Recall Users
 
 Windows has recall enabled on some PCs now. This won't apply to most users so if the script does not find that Windows recall is installed on the users computer, it will be ignored :)
                                         
