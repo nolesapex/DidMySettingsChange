@@ -23,8 +23,6 @@ Microsoft has been under heavy scrutiny with how they manage Windows over the ye
 4. **Run the .py Script**
 5. **Repeat Step 4 After Installing Windows Updates**
 
-> **Heads up:** The graphical interface uses [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter). If it is missing, the application now offers to install it for you automatically, or you can install it manually with `pip install customtkinter`.
-
 ## How it Works + Usage
 
 The usage of tool is simple. You run the tool once. It will store all the current settings inside a txt file. Then you would run the tool again if say there was a windows update. 
