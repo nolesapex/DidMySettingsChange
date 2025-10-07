@@ -6,6 +6,7 @@ import subprocess
 check_script = os.path.join("assets", "check_deps.py")
 subprocess.call([sys.executable, check_script])
 
-# Run your GUI afterward
+# Run GUI
 splash_script = os.path.join(os.getcwd(), "splash_screen.py")
 subprocess.call([sys.executable, splash_script])
+
