@@ -94,7 +94,7 @@ Windows has recall enabled on some PCs now. This won't apply to most users so if
                                         
 ## Contributing
 
-We welcome contributions from the community! If you'd like to contribute, please follow these steps:
+I welcome any contributions from the community! If you'd like to contribute, please follow these steps:
 
 1.    **Fork the repository.**
 2.    **Create a new branch for your feature or bugfix.**
@@ -103,5 +103,5 @@ We welcome contributions from the community! If you'd like to contribute, please
 
 ## Issues
 
-If you encounter any issues or have suggestions for improvements, please open an issue on GitHub. We appreciate your feedback and contributions to make "DidMySettingsChange" better!
+If you encounter any issues or have suggestions for improvements, please open an issue on GitHub. I would greatly appreciate your feedback and contributions to make "DidMySettingsChange" better!
 
