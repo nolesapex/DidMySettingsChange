@@ -1,71 +1,56 @@
 {
     "Telemetry": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
+        "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
         "name": "AllowTelemetry",
         "expected_value": "0"
     },
-    "AdvertisingID": {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
-        "name": "Enabled",
-        "expected_value": "0"
-    },
-    "Location": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\lfsvc\\Service\\Configuration",
-        "name": "Status",
-        "expected_value": "Disabled"
-    },
     "FeedbackFrequency": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
+        "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
         "name": "DoNotShowFeedbackNotifications",
         "expected_value": "1"
     },
-    "TailoredExperiencesWithDiagnosticData": {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
-        "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+    "AdvertisingID": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+        "name": "Enabled",
         "expected_value": "0"
     },
-    "BackgroundApps": {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
-        "name": "GlobalUserDisabled",
+    "LanguageListSharing": {
+        "path": "HKCU\\Control Panel\\International\\User Profile",
+        "name": "HttpAcceptLanguageOptOut",
         "expected_value": "1"
     },
     "AppLaunchTracking": {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
         "name": "Start_TrackProgs",
         "expected_value": "0"
     },
     "SearchHistoryOnDevice": {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
         "name": "IsDeviceSearchHistoryEnabled",
         "expected_value": "0"
     },
     "WebSearch": {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
         "name": "IsWebSearchEnabled",
         "expected_value": "0"
     },
-    "InkingTypingPersonalization": {
-        "path": "HKCU:\\Software\\Microsoft\\Input\\TIP\\PinnedTip",
-        "name": "EnableInkingDataCollection",
-        "expected_value": "0"
-    },
-    "TailoredExperiences": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+    "TailoredExperiencesWithDiagnosticData": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
         "name": "TailoredExperiencesWithDiagnosticDataEnabled",
         "expected_value": "0"
     },
-    "WiFiSense": {
-        "path": "HKLM:\\Software\\Microsoft\\WcmSvc\\wifinetworkmanager\\config",
-        "name": "AutoConnectAllowedOEM",
+    "TailoredExperiences": {
+        "path": "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+        "name": "TailoredExperiencesWithDiagnosticDataEnabled",
         "expected_value": "0"
     },
-    "ActivityHistory": {
-        "path": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ActivityHistory",
-        "name": "PublishUserActivities",
-        "expected_value": "0"
+    "BackgroundApps": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
+        "name": "GlobalUserDisabled",
+        "expected_value": "1"
     },
     "ClipboardHistory": {
-        "path": "HKCU:\\Software\\Microsoft\\Clipboard",
+        "path": "HKCU\\Software\\Microsoft\\Clipboard",
         "name": "EnableClipboardHistory",
         "expected_value": "0"
     },
@@ -74,20 +59,84 @@
         "name": "SyncClipboardServiceEnabled",
         "expected_value": "0"
     },
-    "FindMyDevice": {
-        "path": "HKLM:\\Software\\Microsoft\\PolicyManager\\current\\device\\System",
-        "name": "AllowFindMyDevice",
-        "expected_value": "0"
-    },
     "SpeechRecognition": {
-        "path": "HKCU:\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
+        "path": "HKCU\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy",
         "name": "HasAccepted",
         "expected_value": "0"
     },
-  "Recall": {
-    "path": "HKCU:\\Software\\Microsoft\\Recall",
-    "name": "Enabled",
-    "expected_value": "0"
-  }
-
+    "InkingTypingPersonalization": {
+        "path": "HKCU\\Software\\Microsoft\\InputPersonalization",
+        "name": "RestrictImplicitTextCollection",
+        "expected_value": "1"
+    },
+    "InkingTypingPersonalization2": {
+        "path": "HKCU\\Software\\Microsoft\\InputPersonalization",
+        "name": "RestrictImplicitInkCollection",
+        "expected_value": "1"
+    },
+    "ActivityHistory": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ActivityHistory",
+        "name": "PublishUserActivities",
+        "expected_value": "0"
+    },
+    "FindMyDevice": {
+        "path": "HKLM\\Software\\Microsoft\\PolicyManager\\current\\device\\System",
+        "name": "AllowFindMyDevice",
+        "expected_value": "0"
+    },
+    "Recall": {
+        "path": "HKCU\\Software\\Microsoft\\Recall",
+        "name": "Enabled",
+        "expected_value": "0"
+    },
+    "LocationConsent": {
+        "path": "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
+        "name": "Value",
+        "expected_value": "Deny"
+    },
+    "LocationConsent_User": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
+        "name": "Value",
+        "expected_value": "Deny"
+    },
+    "SensorLocationOverride": {
+        "path": "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Overrides\\{BFA794E4-F964-4FDB-90F6-51056FBE4B44}",
+        "name": "SensorPermissionState",
+        "expected_value": "0"
+    },
+    "SensorLocationAccess": {
+        "path": "HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\PermissionsState",
+        "name": "{BFA794E4-F964-4FDB-90F6-51056FBE4B44}",
+        "expected_value": "0"
+    },
+    "SettingsNotifications": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SystemSettings\\AccountNotifications",
+        "name": "EnableAccountNotifications",
+        "expected_value": "0"
+    },
+    "SettingsOffers_Recommendations": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+        "name": "SubscribedContent-338393Enabled",
+        "expected_value": "0"
+    },
+    "SettingsOffers_Tips": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+        "name": "SubscribedContent-353696Enabled",
+        "expected_value": "0"
+    },
+    "SettingsOffers_SearchTracking": {
+        "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+        "name": "SubscribedContent-310093Enabled",
+        "expected_value": "0"
+    },
+    "DiagnosticsData": {
+        "path": "HKLM\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
+        "name": "LimitEnhancedDiagnosticDataWindowsAnalytics",
+        "expected_value": "1"
+    },
+    "LocationServices": {
+        "path": "HKLM\\System\\CurrentControlSet\\Services\\lfsvc\\Service\\Configuration",
+        "name": "Status",
+        "expected_value": "0"
+    }
 }
