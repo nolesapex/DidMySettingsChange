@@ -26,7 +26,7 @@ Microsoft has been under heavy scrutiny with how they manage Windows over the ye
 
 ## How it Works + Usage
 
-The usage of tool is simple. You run the tool once. It will store all the current settings inside a txt file. Then you would run the tool again if say there was a windows update. 
+The usage of tool is simple. You run the tool once. Click on the "Save Current Settings" button. It will store all the current settings inside a database file to be used as a snapshot. Then you would run the tool again if say there was a windows update. 
 
 To run the script, navigate to the directory where you unzipped the release files and use the following command:
 
