@@ -6,14 +6,14 @@ from threading import Lock
 import customtkinter as ctk
 import winreg
 
-# -------------------- FILE PATHS --------------------
+# File paths
 CONFIG_FILE = 'config.json'
 DATABASE_FILE = 'settings_database.json'
 LOG_FILE = 'settings_log.txt'
 THEME_SETTING_FILE = os.path.join("assets", "themesetting.json")
 ICON_PATH = os.path.join("images", "logo.png")
 
-# -------------------- CONFIG HELPERS --------------------
+# theme config
 def load_theme_setting():
     if os.path.exists(THEME_SETTING_FILE):
         with open(THEME_SETTING_FILE, 'r') as file:
@@ -41,7 +41,7 @@ def save_database(database):
     with open(DATABASE_FILE, 'w') as file:
         json.dump(database, file, indent=4)
 
-# -------------------- REGISTRY ACCESS (DIRECT 64-BIT) --------------------
+# registry (64-bit)
 def read_registry_value(path, name):
     """Read registry value in 64-bit context (bypasses WOW6432 redirection)."""
     try:
@@ -69,8 +69,7 @@ def normalize_value(val):
         return int(val)
     except ValueError:
         return val.lower()
-
-# -------------------- SMART MISSING VALUE HANDLER --------------------
+        
 # Some privacy keys vanish when enabled (missing = default ON)
 MISSING_DEFAULT_ZERO_KEYS = [
     "HttpAcceptLanguageOptOut",                 # "Allow websites to access my language list"
@@ -118,7 +117,7 @@ def log_results(changes):
         for s, cur, prev in changes:
             log_file.write(f"[CHANGE DETECTED] {s}: was {prev}, now {cur}\n")
 
-# -------------------- UI APPLICATION --------------------
+# UI
 class DidMySettingsChangeApp(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -168,7 +167,7 @@ class DidMySettingsChangeApp(ctk.CTk):
         )
         self.save_button.place(x=start_x + button_width + spacing, y=button_y)
 
-    # -------------------- ICON HANDLING --------------------
+    # Icon Handler
     def set_icon(self):
         """Set custom window icon (.ico preferred for Windows)."""
         ico_path = os.path.join("images", "logo.ico")
@@ -188,7 +187,7 @@ class DidMySettingsChangeApp(ctk.CTk):
         except Exception as e:
             print(f"[ICON ERROR] Failed to set icon: {e}")
 
-    # -------------------- THEME HANDLING --------------------
+    # Theme Handling
     def apply_theme(self, theme):
         self.configure(fg_color=theme['bg'])
         ctk.set_default_color_theme("dark-blue")
@@ -202,7 +201,7 @@ class DidMySettingsChangeApp(ctk.CTk):
             btn.configure(fg_color=theme['accent'], hover_color=theme['accent'])
         save_theme_setting(theme_name)
 
-    # -------------------- LOGGING --------------------
+    # Log
     def animated_log(self, message, delay=0.02):
         def run():
             with self.log_lock:
@@ -216,7 +215,7 @@ class DidMySettingsChangeApp(ctk.CTk):
                 self.textbox.see("end")
         threading.Thread(target=run, daemon=True).start()
 
-    # -------------------- ALERT --------------------
+    # Notify
     def show_change_alert(self, message):
         theme = self.themes[self.current_theme]
         bubble = ctk.CTkFrame(self, width=680, height=70, corner_radius=25,
@@ -237,7 +236,6 @@ class DidMySettingsChangeApp(ctk.CTk):
                 self.after(5000, bubble.destroy)
         slide_in()
 
-    # -------------------- ACTIONS --------------------
     def monitor_privacy_settings(self):
         config = load_config(CONFIG_FILE)
         baseline = load_database()
@@ -270,7 +268,7 @@ class DidMySettingsChangeApp(ctk.CTk):
         save_database(snapshot)
         self.animated_log("✅ Baseline saved. Future checks will compare against this snapshot.")
 
-# -------------------- RUN --------------------
+# Run Application
 if __name__ == "__main__":
     app = DidMySettingsChangeApp()
     app.mainloop()
