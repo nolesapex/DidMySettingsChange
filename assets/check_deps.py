@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import messagebox, scrolledtext
 import threading
 
-# --- Module Check ---
+# Module Check
 REQUIRED_MODULES = {
     "customtkinter": "customtkinter",
     "requests": "requests",
@@ -25,7 +25,7 @@ for import_name, pip_name in REQUIRED_MODULES.items():
 if not missing:
     sys.exit(0)
 
-# --- GUI Installer ---
+# GUI Installer
 class DependencyInstaller(tk.Tk):
     def __init__(self, packages):
         super().__init__()
